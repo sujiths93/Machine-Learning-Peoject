@@ -1,0 +1,81 @@
+#PLOTS FOR WEEKENDS AND WEEKDAYS
+  lab=unique(train_train$DayOfWeek)
+colors=c("deepskyblue","darkgreen","gold","brown","orangered","tomato","mediumblue","orange4","lightseagreen","pink","lightseagreen","mediumpurple","plum","tan1")
+lab=as.character(lab)
+lab[2]="Sunday"
+lab[6]="Monday"
+
+par(mfrow=c(1,1),mar=c(9,4,1,0))
+train_train[,1]=as.character(train_train[,1])
+train_train[,2]=as.character(train_train[,2])
+#PLOT FOR WEEKEND
+  plot(table(train_train[train_train$DayOfWeek==lab[1],1]),type='l',las=2,col="red",lwd=3,main="WEEKEND")
+  lines(table(train_train[train_train$DayOfWeek==lab[2],1]),col="mediumblue",type='l',lwd=2)
+
+
+#PLOTS FOR WEEKDAYS
+for(i in 3:length(lab))
+{
+  if(i==3)
+ plot(table(train_train[train_train$DayOfWeek==lab[3],1]),type='l',las=2,col="red",lwd=3,main="WEEKDAYS")
+  
+  lines(table(train_train[train_train$DayOfWeek==lab[i],1]),col=colors[i],type='l',lwd=2.5)
+ } 
+
+
+  
+#PLOTS FOR PDDISTRICT
+lab=unique(train_train$PdDistrict)
+lab=as.character(lab)
+
+par(mfrow=c(1,1),mar=c(9,4,1,0))
+for(i in 1:length(lab))
+{
+  if(i==1)
+   a=plot(table(train_train[train_train$PdDistrict==lab[1],1]),type='l',las=2,col="red",main="PDDISTRICT")
+  lines(table(train_train[train_train$PdDistrict==lab[i],1]),col=colors[i],type='l',lwd=2.5)
+} 
+  
+
+#PLOTS FOR DIFFERENT HOURS OF A DAY
+night=c("22","23","0","1","2","3","4","5","6","7")
+day=as.character(c(8:17))
+evening=as.character(c(18:21))
+par(mfrow=c(1,1),mar=c(9,4,1,0))
+for(i in 1:length(night))
+{
+  if(i==1)
+   a=plot(table(train_train[train_train$Hour==night[1],1]),type='l',las=2,col="red",main="NIGHT BETWEEN 22-7 HRS")
+   
+  lines(table(train_train[train_train$Hour==night[i],1]),col=colors[i],type='l',lwd=2.5)
+}
+
+#DIVIDING DAY HOURS TO 2 HALVES SO YOU DONT GET CONFUSED
+par(mfrow=c(1,1),mar=c(9,4,1,0))
+h=length(day)/2
+for(i in 1:h)
+{
+  if(i==1)
+   a=plot(table(train_train[train_train$Hour==day[1],1]),type='l',las=2,col="red",main="DAY BETWEEN 8:12HRS")
+   
+  lines(table(train_train[train_train$Hour==day[i],1]),col=colors[i],type='l',lwd=2.5)
+}
+k=h
+for(i in h+1:length(day))
+{
+  if(i==h+1)
+   a=plot(table(train_train[train_train$Hour==day[h+1],1]),type='l',las=2,col="red",main="DAY BETWEEN 13:17HRS")
+   
+  lines(table(train_train[train_train$Hour==day[i],1]),col=colors[k],type='l',lwd=2.5)
+  k=k+1
+}
+
+
+
+for(i in 1:length(evening))
+{
+  if(i==1)
+   a=plot(table(train_train[train_train$Hour==evening[1],1]),type='l',las=2,col="red",main="EVENING BETWEEN 18:21 HOURS")
+   
+  lines(table(train_train[train_train$Hour==evening[i],1]),col=colors[i],type='l',lwd=2.5)
+}
